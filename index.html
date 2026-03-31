@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Elijah — Desenvolvedor Full Stack</title>
+
+  <!-- Google Fonts: Cormorant Garamond (serif/títulos) + DM Sans (sans/corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos do site -->
+  <link rel="stylesheet" href="/src/css/style.css">
+</head>
+<body>
+
+
+<!-- ═══════════════════════════════════════════
+     HEADER — Barra de navegação fixa no topo
+     A classe .scrolled é adicionada via JS
+     quando o usuário rola a página.
+     ═══════════════════════════════════════════ -->
+<header id="header">
+  <div class="nav-inner">
+
+    <!-- Logo: clica e volta ao topo -->
+    <a class="logo" href="#">Nicholas Elijah<em>.</em></a>
+
+    <!-- Links de navegação (desktop) -->
+    <nav class="nav-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#processo">Processo</a>
+      <a href="#sobre">Sobre</a>
+      <!-- Botão CTA que leva ao formulário -->
+      <a class="nav-cta" href="#contato">Falar agora</a>
+    </nav>
+
+    <!-- Botão hambúrguer: visível apenas no mobile -->
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+  </div>
+
+  <!-- Menu mobile: aberto pela classe .open (adicionada via JS) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#servicos" onclick="closeMobile()">Serviços</a>
+    <a href="#projetos" onclick="closeMobile()">Projetos</a>
+    <a href="#processo" onclick="closeMobile()">Processo</a>
+    <a href="#sobre"    onclick="closeMobile()">Sobre</a>
+    <a class="nav-cta" href="#contato" onclick="closeMobile()">Falar agora</a>
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO — Seção de apresentação principal
+     Grid de 2 colunas: texto | card de stats
+     O card some no mobile (display:none no CSS)
+     ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Coluna esquerda: texto + CTAs -->
+      <div>
+        <div class="hero-eyebrow">Desenvolvedor Full Stack</div>
+
+        <h1>Nicholas<br><span>Elijah</span></h1>
+
+        <p class="hero-desc">
+          Transformo ideias em <strong>produtos digitais</strong> que funcionam de verdade.
+          Do design à entrega, com foco em qualidade, prazo e resultados reais para o seu negócio.
+        </p>
+
+        <div class="hero-actions">
+          <!-- CTA primário: rola até o formulário de contato -->
+          <a class="btn-primary" href="#contato">
+            <!-- Ícone WhatsApp SVG inline -->
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.122 1.522 5.853L.057 23.571l5.866-1.538A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.877 9.877 0 01-5.044-1.385l-.361-.215-3.482.914.926-3.382-.235-.372A9.878 9.878 0 012.106 12C2.106 6.527 6.527 2.106 12 2.106S21.894 6.527 21.894 12 17.473 21.894 12 21.894z"/>
+            </svg>
+            Enviar proposta
+          </a>
+          <!-- CTA secundário: rola até projetos -->
+          <a class="btn-secondary" href="#projetos">Ver projetos →</a>
+        </div>
+      </div>
+
+      <!-- Coluna direita: card com estatísticas (oculto no mobile) -->
+      <div class="hero-card fade-in">
+        <div class="hero-card-title">Números do portfólio</div>
+
+        <!-- Grid 2x2 de métricas -->
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-val">+9</div>
+            <div class="hero-stat-lbl">Projetos entregues</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">+5</div>
+            <div class="hero-stat-lbl">Anos de experiência</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">100%</div>
+            <div class="hero-stat-lbl">Dedicação ao cliente</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">24h</div>
+            <div class="hero-stat-lbl">Resposta média</div>
+          </div>
+        </div>
+
+        <!-- Badge de disponibilidade com ponto pulsante (CSS animation) -->
+        <div class="hero-avail">Disponível para novos projetos</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     MARQUEE — Faixa rolante de tecnologias
+     O conteúdo é duplicado para criar loop
+     contínuo com CSS animation
+     ═══════════════════════════════════════════ -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <!-- Primeira metade -->
+    <span>React</span><span class="sep">·</span>
+    <span>Node.js</span><span class="sep">·</span>
+    <span>TypeScript</span><span class="sep">·</span>
+    <span>Next.js</span><span class="sep">·</span>
+    <span>PostgreSQL</span><span class="sep">·</span>
+    <span>Docker</span><span class="sep">·</span>
+    <span>APIs REST</span><span class="sep">·</span>
+    <span>UI/UX</span><span class="sep">·</span>
+    <span>React Native</span><span class="sep">·</span>
+    <span>Cloud AWS</span><span class="sep">·</span>
+    <!-- Segunda metade (duplicada para loop infinito) -->
+    <span>React</span><span class="sep">·</span>
+    <span>Node.js</span><span class="sep">·</span>
+    <span>TypeScript</span><span class="sep">·</span>
+    <span>Next.js</span><span class="sep">·</span>
+    <span>PostgreSQL</span><span class="sep">·</span>
+    <span>Docker</span><span class="sep">·</span>
+    <span>APIs REST</span><span class="sep">·</span>
+    <span>UI/UX</span><span class="sep">·</span>
+    <span>React Native</span><span class="sep">·</span>
+    <span>Cloud AWS</span><span class="sep">·</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SERVIÇOS — Cards clicáveis que pré-selecionam
+     o serviço no formulário de contato (via JS)
+     ═══════════════════════════════════════════ -->
+<section class="services" id="servicos">
+  <div class="container">
+
+    <!-- Cabeçalho da seção -->
+    <div class="section-head-row fade-in">
+      <div>
+        <div class="section-tag">O que eu faço</div>
+        <h2 class="section-title">Serviços</h2>
+        <p class="section-sub">Soluções sob medida para o seu negócio, do planejamento até o produto final em produção.</p>
+      </div>
+    </div>
+
+    <!-- Grade de serviços: 3 colunas no desktop -->
+    <div class="services-grid">
+
+      <!-- Card 01: Desenvolvimento Web -->
+      <!-- onclick chama openContactWithService() do script.js -->
+      <div class="service-card fade-in" onclick="openContactWithService('Desenvolvimento Web')">
+        <span class="service-num">01</span>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="14" rx="1"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <h3>Desenvolvimento Web</h3>
+        <p>Sites, landing pages e aplicações web modernas, rápidas e responsivas — do design ao deploy completo.</p>
+        <span class="service-card-arrow">
+          Solicitar orçamento
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </span>
+      </div>
+
+      <!-- Card 02: E-commerce -->
+      <div class="service-card fade-in" onclick="openContactWithService('E-commerce')">
+        <span class="service-num">02</span>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </div>
+        <h3>E-commerce</h3>
+        <p>Lojas virtuais completas com pagamento integrado, gestão de estoque e experiência de compra otimizada para converter.</p>
+        <span class="service-card-arrow">
+          Solicitar orçamento
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </span>
+      </div>
+
+      <!-- Card 03: Projeto Personalizado -->
+      <div class="service-card fade-in" onclick="openContactWithService('Projeto Personalizado')">
+        <span class="service-num">03</span>
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+        </div>
+        <h3>Projeto Personalizado</h3>
+        <p>Tem uma ideia que não se encaixa acima? Me conta. Se é código, a gente encontra o caminho certo juntos.</p>
+        <span class="service-card-arrow">
+          Solicitar orçamento
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PROJETOS — Portfólio com filtros
+     Estrutura:
+     - Botões de filtro por categoria
+     - Projeto destaque (featured) com imagem real
+     - Grade de 6 cards com imagens de demo
+     ═══════════════════════════════════════════ -->
+<section class="projects" id="projetos">
+  <div class="container">
+
+    <!-- Cabeçalho -->
+    <div class="section-head-row fade-in">
+      <div>
+        <div class="section-tag">Portfólio</div>
+        <h2 class="section-title">Projetos</h2>
+        <p class="section-sub">Trabalhos reais com contexto, stack e resultados.</p>
+      </div>
+    </div>
+
+    <!-- Botões de filtro: data-filter deve corresponder ao data-category dos cards -->
+    <div class="proj-filters fade-in">
+      <button class="proj-filter active" data-filter="all">Todos</button>
+      <button class="proj-filter" data-filter="web">Web</button>
+      <button class="proj-filter" data-filter="mobile">Mobile</button>
+      <button class="proj-filter" data-filter="sistema">Sistema</button>
+      <button class="proj-filter" data-filter="ecommerce">E-commerce</button>
+    </div>
+
+
+    <!-- ── PROJETO DESTAQUE ── -->
+    <!-- data-category: usado pelo filtro JS -->
+    <!-- onclick: abre WA com mensagem sobre este projeto específico -->
+    <div class="proj-featured fade-in" data-category="sistema" onclick="sendProjectWA('Site Institucional')">
+
+      <!-- Lado esquerdo: imagem de demo real -->
+      <div class="proj-featured-img">
+        <div class="proj-featured-badge">Projeto Destaque</div>
+
+        <!--
+          IMAGEM DO PROJETO DESTAQUE
+          Substitua o src pela URL real do seu projeto.
+          A imagem é escurecida pelo CSS (filter: brightness(0.75))
+          para garantir legibilidade dos textos sobrepostos.
+          Tamanho sugerido: 900x600px ou superior, landscape.
+        -->
+        <img
+          src="/src/images/viasolidaria.png"
+          alt="Site Institucional Instituto Via Solidária"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Lado direito: informações do projeto -->
+      <div class="proj-featured-body">
+        <div class="proj-featured-cat">Instituto Via Solidária · 2026</div>
+        <h3>Site Institucional</h3>
+        <p>
+          Página web completa, oferecendo uma visão geral do projeto do Instituto com diversas
+          funcionalidades integradas. A plataforma também conta com múltiplas formas de contato,
+          facilitando a comunicação e o suporte ao usuário.
+        </p>
+
+        <!-- Métricas numéricas do projeto -->
+        <div class="proj-metrics">
+          <div class="proj-metric">
+            <div class="proj-metric-val">100%</div>
+            <div class="proj-metric-lbl">Aprovação do cliente</div>
+          </div>
+          <div class="proj-metric">
+            <div class="proj-metric-val">3 dias</div>
+            <div class="proj-metric-lbl">Entrega</div>
+          </div>
+        </div>
+
+        <!-- Card de feedback do cliente -->
+        <div class="proj-feedback-card">
+          <div class="proj-feedback-inner">
+            <!-- Aspas decorativas -->
+            <div class="proj-feedback-quote">"</div>
+            <div>
+              <!-- Texto do depoimento -->
+              <p class="proj-feedback-text">
+                O Nicholas entregou o site em tempo recorde, com qualidade excepcional e comunicação impecável durante todo o processo. Superou nossas expectativas em todos os aspectos.
+              </p>
+              <!-- Autor do depoimento -->
+              <div class="proj-feedback-author">
+                <div class="proj-feedback-avatar">FV</div>
+                <div>
+                  <div class="proj-feedback-name">Fábio Vicente</div>
+                  <div class="proj-feedback-role">Gestor · Instituto Via Solidária</div>
+                </div>
+                <!-- Estrelas -->
+                <div class="proj-feedback-stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA de contato -->
+        <span class="proj-cta">
+          Quero algo parecido
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </span>
+      </div>
+
+    </div>
+    <!-- ── FIM PROJETO DESTAQUE ── -->
+
+
+    <!-- ── GRADE DE PROJETOS ── -->
+    <div class="projects-grid">
+
+      <!-- ─ Card 1: E-commerce de Moda ─ -->
+      <!-- data-category: deve corresponder ao data-filter dos botões -->
+      <div class="proj-card fade-in" data-category="ecommerce" onclick="sendProjectWA('Loja de Moda Sustentável')">
+        <div class="proj-card-thumb">
+          <!--
+            IMAGEM DE DEMO DO PROJETO
+            Substitua o src pela URL/print real do projeto.
+            Tamanho sugerido: 600x350px, landscape.
+            O CSS aplica object-fit:cover e escurece com filter:brightness(0.72)
+          -->
+          <img
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80&fit=crop"
+            alt="Loja de Moda Sustentável"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">E-commerce · 2024</div>
+          <h4>Loja de Moda Sustentável</h4>
+          <p>E-commerce completo com catálogo, carrinho, Pix e cartão, painel de pedidos e frete automático via Correios.</p>
+          <div class="proj-card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Stripe</span>
+            <span class="tag">Prisma</span>
+            <span class="tag">PagSeguro</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">+180% de conversão</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- ─ Card 2: App de Delivery ─ -->
+      <div class="proj-card fade-in" data-category="mobile" onclick="sendProjectWA('App de Delivery Local')">
+        <div class="proj-card-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=600&q=80&fit=crop"
+            alt="App de Delivery Local"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">Mobile · 2024</div>
+          <h4>App de Delivery Local</h4>
+          <p>Android e iOS para rede de restaurantes com rastreamento em tempo real, notificações push e painel de gestão.</p>
+          <div class="proj-card-tags">
+            <span class="tag">React Native</span>
+            <span class="tag">Expo</span>
+            <span class="tag">Socket.io</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">5.000+ downloads/mês</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- ─ Card 3: Portal Imobiliário ─ -->
+      <div class="proj-card fade-in" data-category="web" onclick="sendProjectWA('Portal Imobiliário')">
+        <div class="proj-card-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&fit=crop"
+            alt="Portal Imobiliário"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">Web · 2023</div>
+          <h4>Portal Imobiliário</h4>
+          <p>Plataforma de busca e anúncio de imóveis com filtros avançados, tour 360°, CRM e calculadora de financiamento.</p>
+          <div class="proj-card-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Mapbox</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">40k visitas/mês</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- ─ Card 4: Sistema de RH ─ -->
+      <div class="proj-card fade-in" data-category="sistema" onclick="sendProjectWA('Sistema de RH & Ponto')">
+        <div class="proj-card-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80&fit=crop"
+            alt="Sistema de RH & Ponto"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">Sistema · 2023</div>
+          <h4>Sistema de RH & Ponto</h4>
+          <p>Gestão de colaboradores, ponto biométrico, banco de horas, férias e geração automática de holerites em PDF.</p>
+          <div class="proj-card-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">200+ usuários ativos</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- ─ Card 5: Dashboard Financeiro ─ -->
+      <div class="proj-card fade-in" data-category="web" onclick="sendProjectWA('Dashboard Financeiro')">
+        <div class="proj-card-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&fit=crop"
+            alt="Dashboard Financeiro"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">Fintech · Web · 2023</div>
+          <h4>Dashboard Financeiro</h4>
+          <p>Painel para PMEs com conciliação bancária automática, gráficos de fluxo de caixa e relatórios PDF exportáveis.</p>
+          <div class="proj-card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Recharts</span>
+            <span class="tag">Open Banking</span>
+            <span class="tag">PDF.js</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">−6h/semana de trabalho manual</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- ─ Card 6: App de Academia ─ -->
+      <div class="proj-card fade-in" data-category="mobile" onclick="sendProjectWA('App de Academia & Treinos')">
+        <div class="proj-card-thumb">
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80&fit=crop"
+            alt="App de Academia & Treinos"
+            loading="lazy"
+          />
+        </div>
+        <div class="proj-card-body">
+          <div class="proj-card-cat">Mobile · 2022</div>
+          <h4>App de Academia & Treinos</h4>
+          <p>Treinos personalizados, acompanhamento de evolução, agendamento de aulas e chat com personal trainer.</p>
+          <div class="proj-card-tags">
+            <span class="tag">React Native</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">Supabase</span>
+          </div>
+        </div>
+        <div class="proj-card-footer">
+          <span class="proj-card-result">4.8★ · 1.200+ avaliações</span>
+          <span class="proj-card-link">
+            Ver mais
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <!-- ── FIM GRADE DE PROJETOS ── -->
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     PROCESSO — 4 etapas do fluxo de trabalho
+     Linha conectora horizontal via CSS ::before
+     ═══════════════════════════════════════════ -->
+<section class="process" id="processo">
+  <div class="container">
+
+    <div class="section-head fade-in" style="text-align:center;">
+      <div class="section-tag" style="justify-content:center;">Como trabalho</div>
+      <h2 class="section-title">Do briefing ao produto final</h2>
+      <p class="section-sub" style="margin:0 auto;">Um processo simples, transparente e direto — sem burocracia, sem surpresas.</p>
+    </div>
+
+    <div class="process-steps">
+
+      <!-- Passo 1 -->
+      <div class="process-step fade-in">
+        <div class="process-step-bubble">
+          <div class="process-step-num">1</div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <h4>Briefing</h4>
+        <p>Entendo o negócio, o problema e os objetivos. Conversa direta, sem formulário chato.</p>
+      </div>
+
+      <!-- Passo 2 -->
+      <div class="process-step fade-in">
+        <div class="process-step-bubble">
+          <div class="process-step-num">2</div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <h4>Proposta & Escopo</h4>
+        <p>Documento claro: o que será entregue, prazo e investimento. Sem surpresas no final.</p>
+      </div>
+
+      <!-- Passo 3 -->
+      <div class="process-step fade-in">
+        <div class="process-step-bubble">
+          <div class="process-step-num">3</div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h4>Desenvolvimento</h4>
+        <p>Código limpo, revisões periódicas e comunicação constante. Você acompanha tudo.</p>
+      </div>
+
+      <!-- Passo 4 -->
+      <div class="process-step fade-in">
+        <div class="process-step-bubble">
+          <div class="process-step-num">4</div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h4>Entrega & Suporte</h4>
+        <p>Deploy, treinamento e suporte pós-entrega inclusos. O projeto não termina quando vai ao ar.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     DEPOIMENTOS — 3 cards de testemunhos
+     ═══════════════════════════════════════════ -->
+<section class="testimonials">
+  <div class="container">
+
+    <div class="section-head fade-in" style="text-align:center; margin-bottom:52px;">
+      <div class="section-tag" style="justify-content:center;">Clientes</div>
+      <h2 class="section-title">O que dizem sobre o trabalho</h2>
+      <p class="section-sub" style="margin:0 auto;">Resultados reais, palavras reais de quem já trabalhou comigo.</p>
+    </div>
+
+    <div class="testimonials-grid">
+
+      <!-- Depoimento 1 -->
+      <div class="testi-card fade-in">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-text">"Nicholas entregou nosso sistema no prazo e com zero bugs críticos. A comunicação foi impecável do início ao fim. Já estamos planejando a próxima fase com ele."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CA</div> <!-- Iniciais do cliente -->
+          <div>
+            <div class="testi-name">Carlos Andrade</div>
+            <div class="testi-role">CEO · Clínica Andrade</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depoimento 2 -->
+      <div class="testi-card fade-in">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-text">"Transformou nossa loja física em digital em tempo recorde. As vendas online já superam as presenciais. O app ficou incrível, nossos clientes adoraram a experiência."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">PM</div>
+          <div>
+            <div class="testi-name">Patricia Melo</div>
+            <div class="testi-role">Fundadora · Studio PM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Depoimento 3 -->
+      <div class="testi-card fade-in">
+        <div class="testi-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="testi-text">"Profissional sério e técnico. Resolveu em dias um problema que nossa equipe havia tentado resolver por meses. Recomendo sem hesitar para projetos críticos."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RS</div>
+          <div>
+            <div class="testi-name">Rafael Souza</div>
+            <div class="testi-role">CTO · Logtech Brasil</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SOBRE MIM — Layout de 2 colunas
+     Coluna esquerda: foto (ou iniciais de fallback)
+     Coluna direita: bio + stats + stack
+     ═══════════════════════════════════════════ -->
+<section class="about" id="sobre">
+  <div class="container">
+    <div class="about-inner">
+
+      <!-- Coluna da foto -->
+      <div class="about-visual fade-in">
+        <div class="about-photo-frame">
+          <!--
+            FOTO PESSOAL
+            Tamanho ideal: 800x1000px (proporção 4:5)
+            object-fit:cover garante que a imagem preencha
+            sem distorcer, independente do tamanho do arquivo.
+
+            Se não tiver foto, remova a tag <img> e descomente:
+            <div class="about-initials">NE</div>
+          -->
+          <img
+            src="foto.png"
+            alt="Nicholas Elijah"
+            style="width:100%; height:100%; object-fit:cover; position:relative; z-index:1;"
+          />
+        </div>
+
+        <!-- Badge de disponibilidade sobreposto no rodapé da foto -->
+        <div class="about-avail-badge">
+          <div class="about-avail-dot"></div>
+          Disponível para novos projetos
+        </div>
+      </div>
+
+      <!-- Coluna do conteúdo -->
+      <div class="about-content fade-in">
+        <div class="section-tag">Sobre mim</div>
+        <h2 class="section-title">Dev que entrega resultado</h2>
+
+        <p class="about-text">
+          Sou desenvolvedor com paixão por construir coisas que <strong>realmente funcionam</strong>.
+          Trabalho com o ciclo completo — da ideia inicial ao produto em produção —
+          garantindo qualidade técnica e atenção ao que importa: <strong>o resultado do seu negócio</strong>.
+        </p>
+        <p class="about-text">
+          Cada projeto recebe atenção individual. Sem template genérico, sem enrolação.
+          Comunicação direta, código limpo e prazo cumprido. É assim que trabalho.
+        </p>
+
+        <!-- Estatísticas numéricas -->
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-val">+9</div>
+            <div class="about-stat-lbl">Projetos</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-val">+5</div>
+            <div class="about-stat-lbl">Anos</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-val">100%</div>
+            <div class="about-stat-lbl">Dedicação</div>
+          </div>
+        </div>
+
+        <!-- Tecnologias em pílulas clicáveis (hover no CSS) -->
+        <div class="stack-title">Stack principal</div>
+        <div class="stack-pills">
+          <span class="stack-pill">React</span>
+          <span class="stack-pill">Next.js</span>
+          <span class="stack-pill">Node.js</span>
+          <span class="stack-pill">TypeScript</span>
+          <span class="stack-pill">React Native</span>
+          <span class="stack-pill">PostgreSQL</span>
+          <span class="stack-pill">Docker</span>
+          <span class="stack-pill">AWS</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     CONTATO — Split: info | formulário
+     O formulário coleta dados do cliente e
+     monta uma mensagem formatada para o WA.
+     Toda a lógica está em script.js.
+     ═══════════════════════════════════════════ -->
+<section class="contact-section" id="contato">
+  <div class="container">
+    <div class="contact-inner">
+
+      <!-- Coluna esquerda: informações de contato -->
+      <div class="contact-left fade-in">
+        <div class="section-tag">Contato</div>
+        <h2 class="section-title">Tem um projeto em <span>mente?</span></h2>
+        <p class="contact-desc">
+          Preencha o formulário ao lado com os detalhes do seu projeto e eu te respondo
+          pelo WhatsApp o mais rápido possível — geralmente em menos de 24h.
+        </p>
+
+        <!-- Lista de canais de contato -->
+        <div class="contact-info-list">
+
+          <!-- WhatsApp -->
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.122 1.522 5.853L.057 23.571l5.866-1.538A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.877 9.877 0 01-5.044-1.385l-.361-.215-3.482.914.926-3.382-.235-.372A9.878 9.878 0 012.106 12C2.106 6.527 6.527 2.106 12 2.106S21.894 6.527 21.894 12 17.473 21.894 12 21.894z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">WhatsApp</div>
+              <div class="contact-info-val">+55 (21) 99283-0426</div>
+            </div>
+          </div>
+
+          <!-- E-mail -->
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">E-mail</div>
+              <div class="contact-info-val">bynicholaselijah@gmail.com</div>
+            </div>
+          </div>
+
+          <!-- Tempo de resposta -->
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-info-label">Resposta em</div>
+              <div class="contact-info-val">Até 24 horas úteis</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Badge de disponibilidade -->
+        <div class="contact-avail">Disponível para novos projetos agora</div>
+      </div>
+
+
+      <!-- Coluna direita: formulário de contato -->
+      <div class="contact-form-wrap fade-in">
+        <div class="form-title">Envie sua proposta</div>
+        <div class="form-subtitle">Todas as informações vão direto para o meu WhatsApp.</div>
+
+        <!--
+          FORMULÁRIO DE CONTATO
+          onsubmit → handleFormSubmit() em script.js
+          novalidate → desativa validação nativa do browser (usamos a nossa)
+        -->
+        <form id="contactForm" onsubmit="handleFormSubmit(event)" novalidate>
+
+          <!-- Linha 1: Nome + Empresa -->
+          <div class="form-row">
+
+            <!-- Campo obrigatório: id do grupo deve ser "group-{campo}" -->
+            <div class="form-group" id="group-nome">
+              <label for="f-nome">Seu nome *</label>
+              <input type="text" id="f-nome" placeholder="João Silva" autocomplete="given-name"/>
+              <!-- Mensagem de erro: exibida via CSS quando .has-error está no .form-group -->
+              <span class="form-field-err">Por favor, informe seu nome.</span>
+            </div>
+
+            <!-- Campo opcional: empresa/negócio -->
+            <div class="form-group">
+              <label for="f-empresa">Empresa / Negócio</label>
+              <input type="text" id="f-empresa" placeholder="Minha Empresa Ltda" autocomplete="organization"/>
+            </div>
+
+          </div>
+
+          <!-- Linha 2: WhatsApp + E-mail -->
+          <div class="form-row">
+
+            <div class="form-group" id="group-whatsapp">
+              <label for="f-whatsapp">WhatsApp *</label>
+              <!-- A máscara (21) 99999-0000 é aplicada via JS no input event -->
+              <input type="tel" id="f-whatsapp" placeholder="(21) 99999-0000" autocomplete="tel"/>
+              <span class="form-field-err">Informe um número de WhatsApp válido.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="f-email">E-mail</label>
+              <input type="email" id="f-email" placeholder="joao@empresa.com" autocomplete="email"/>
+            </div>
+
+          </div>
+
+          <!-- Linha 3: Tipo de projeto (obrigatório) -->
+          <div class="form-row single" style="margin-bottom:14px;">
+            <div class="form-group" id="group-servico">
+              <label for="f-servico">Tipo de projeto *</label>
+              <select id="f-servico">
+                <option value="">Selecione o serviço...</option>
+                <option value="Desenvolvimento Web">Desenvolvimento Web</option>
+                <option value="E-commerce">E-commerce / Loja Virtual</option>
+                <option value="Projeto Personalizado">Projeto Personalizado</option>
+              </select>
+              <span class="form-field-err">Selecione o tipo de projeto.</span>
+            </div>
+          </div>
+
+          <!-- Linha 4: Prazo desejado (opcional) -->
+          <div class="form-row single" style="margin-bottom:14px;">
+            <div class="form-group">
+              <label for="f-prazo">Prazo desejado</label>
+              <select id="f-prazo">
+                <option value="">Sem prazo definido</option>
+                <option value="Urgente (menos de 2 semanas)">Urgente (menos de 2 semanas)</option>
+                <option value="1 mês">1 mês</option>
+                <option value="1 a 3 meses">1 a 3 meses</option>
+                <option value="3 a 6 meses">3 a 6 meses</option>
+                <option value="Mais de 6 meses">Mais de 6 meses</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Linha 5: Descrição do projeto (obrigatório) -->
+          <div class="form-row single" style="margin-bottom:20px;">
+            <div class="form-group" id="group-descricao">
+              <label for="f-descricao">Descreva seu projeto *</label>
+              <textarea
+                id="f-descricao"
+                placeholder="Conte um pouco sobre o que você precisa: objetivo do projeto, funcionalidades principais, se já tem algo existente, referências que gosta..."
+              ></textarea>
+              <span class="form-field-err">Descreva brevemente o seu projeto.</span>
+            </div>
+          </div>
+
+          <!-- Botão de envio: abre o WhatsApp com a mensagem formatada -->
+          <button type="submit" class="form-submit-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.122 1.522 5.853L.057 23.571l5.866-1.538A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.877 9.877 0 01-5.044-1.385l-.361-.215-3.482.914.926-3.382-.235-.372A9.878 9.878 0 012.106 12C2.106 6.527 6.527 2.106 12 2.106S21.894 6.527 21.894 12 17.473 21.894 12 21.894z"/>
+            </svg>
+            Enviar pelo WhatsApp
+          </button>
+
+          <p class="form-note">Ao clicar, o WhatsApp abrirá com sua mensagem pré-formatada. Nenhum dado é armazenado.</p>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER — Logo + links + copyright
+     ═══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a class="footer-logo" href="#">Nicholas Elijah<em>.</em></a>
+      <nav class="footer-links">
+        <a href="#servicos">Serviços</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#processo">Processo</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <span class="footer-copy">© 2026 Nicholas Elijah. Todos os direitos reservados.</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════
+     TOAST — Notificação flutuante
+     Exibida via showToast() em script.js
+     Aparece no canto inferior direito
+     ═══════════════════════════════════════════ -->
+<div class="toast" id="toast">
+  <!-- Ícone SVG: trocado dinamicamente pelo JS conforme o tipo (success/error) -->
+  <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="toastIcon">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+  <span id="toastMsg"></span>
+</div>
+
+
+<!-- Script principal: carregado no final do body para garantir
+     que o DOM esteja completo antes da execução -->
+<script src="/src/js/script.js"></script>
+
+</body>
+</html>

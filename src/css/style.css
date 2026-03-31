@@ -1,0 +1,2056 @@
+/* ============================================================
+   style.css — Portfolio Nicholas Elijah
+   Organização:
+   1. Reset & Variáveis globais
+   2. Base (html, body)
+   3. Header / Nav
+   4. Hero section
+   5. Marquee (faixa de tecnologias)
+   6. Seções genéricas (títulos, tags)
+   7. Serviços
+   8. Projetos (filtros, featured, grid)
+   9. Processo
+   10. Depoimentos
+   11. Sobre mim
+   12. Contato / Formulário
+   13. Footer
+   14. Utilitários (fade-in, toast)
+   15. Responsivo (media queries)
+   ============================================================ */
+
+
+/* ─────────────────────────────────────────
+   1. RESET & VARIÁVEIS GLOBAIS
+   Zera margens/padding e define o sistema
+   de cores e medidas reutilizáveis via CSS
+   custom properties (variáveis).
+   ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Tons de fundo — do mais escuro ao mais claro */
+    --bg: #100d0a;
+    --surface: #181210;
+    --surface2: #201810;
+    --surface3: #2a1f16;
+
+    /* Bordas sutis em tom âmbar */
+    --border: rgba(180, 140, 100, 0.13);
+    --border2: rgba(200, 155, 105, 0.30);
+
+    /* Tipografia */
+    --text: #f2e8d8;
+    /* texto principal */
+    --text2: #cebfaa;
+    /* texto secundário */
+    --muted: #8a7060;
+    /* texto opaco/labels */
+    --muted2: #4e3c2e;
+    /* texto muito opaco */
+
+    /* Cor de destaque âmbar/cobre */
+    --accent: #c8906a;
+    --accent-dark: #a87050;
+    --accent-dim: rgba(200, 144, 106, 0.10);
+    --accent-glow: rgba(200, 144, 106, 0.20);
+
+    /* WhatsApp green */
+    --wa: #25D366;
+
+    /* Feedback de formulário */
+    --error: #e07070;
+    --success: #5dba7c;
+
+    /* Bordas arredondadas */
+    --radius: 14px;
+    --radius-sm: 9px;
+}
+
+
+/* ─────────────────────────────────────────
+   2. BASE
+   Comportamento global do documento
+   ───────────────────────────────────────── */
+html {
+    scroll-behavior: smooth;
+    /* âncoras animadas */
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+    /* evita scroll horizontal */
+}
+
+
+/* ─────────────────────────────────────────
+   3. HEADER / NAV
+   Barra de navegação fixa no topo com
+   efeito de blur (glassmorphism) e sombra
+   ao fazer scroll (classe .scrolled via JS)
+   ───────────────────────────────────────── */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 300;
+    background: rgba(16, 13, 10, 0.94);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+}
+
+/* Sombra aplicada via JS quando a página tem scroll */
+header.scrolled {
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Layout interno da barra: logo | links | botão mobile */
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+}
+
+/* Logo em serif */
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+}
+
+.logo em {
+    color: var(--accent);
+    /* ponto âmbar após o nome */
+    font-style: normal;
+}
+
+/* Links de navegação desktop */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+    background: var(--accent-dim);
+}
+
+/* Botão CTA na nav (cor sólida) */
+.nav-cta {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+    font-weight: 600 !important;
+    padding: 8px 20px !important;
+    border-radius: 8px !important;
+}
+
+.nav-cta:hover {
+    background: var(--accent-dark) !important;
+}
+
+/* Botão hambúrguer — visível só no mobile */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 6px;
+}
+
+.nav-toggle svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* Menu mobile expandível */
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 20px 18px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.mobile-menu a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 11px 14px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    color: var(--text);
+    background: var(--accent-dim);
+}
+
+.mobile-menu .nav-cta {
+    color: var(--bg) !important;
+    background: var(--accent) !important;
+}
+
+/* Classe adicionada via JS ao clicar no hambúrguer */
+.mobile-menu.open {
+    display: flex;
+}
+
+
+/* ─────────────────────────────────────────
+   4. HERO SECTION
+   Seção de apresentação principal com
+   gradiente radial de fundo e grade de
+   pontos sutil via ::before
+   ───────────────────────────────────────── */
+.hero {
+    padding-top: 138px;
+    padding-bottom: 100px;
+    background:
+        radial-gradient(ellipse 80% 65% at 80% 20%, rgba(200, 144, 106, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 5% 90%, rgba(160, 100, 60, 0.05) 0%, transparent 50%),
+        var(--bg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Grade de pontos decorativos */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(180, 140, 100, 0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+}
+
+/* Layout de duas colunas: texto | card */
+.hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtítulo acima do h1 com linha decorativa */
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+}
+
+.hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+/* Título principal com tamanho fluido */
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(50px, 7vw, 90px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 26px;
+}
+
+.hero h1 span {
+    color: var(--accent);
+}
+
+/* Descrição sob o h1 */
+.hero-desc {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--text2);
+    line-height: 1.8;
+    max-width: 500px;
+    margin-bottom: 40px;
+}
+
+.hero-desc strong {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Grupo de botões CTA */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* ── Botões reutilizáveis ── */
+/* Botão primário (fundo âmbar) */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 26px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px var(--accent-glow);
+}
+
+.btn-primary svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+/* Botão secundário (contorno) */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text2);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 22px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border2);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+}
+
+/* Card lateral com estatísticas (oculto no mobile) */
+.hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.hero-card-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+/* Grade 2x2 de números */
+.hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.hero-stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 14px;
+}
+
+.hero-stat-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 3px;
+}
+
+.hero-stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* Badge de disponibilidade com ponto pulsante */
+.hero-avail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37, 211, 102, 0.07);
+    border: 1px solid rgba(37, 211, 102, 0.18);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--wa);
+}
+
+.hero-avail::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--wa);
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Animação do ponto pulsante (usada em vários lugares) */
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(37, 211, 102, 0.07);
+    }
+}
+
+
+/* ─────────────────────────────────────────
+   5. MARQUEE (faixa de tecnologias)
+   Rolagem infinita de texto via CSS
+   ───────────────────────────────────────── */
+.marquee-strip {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    overflow: hidden;
+}
+
+/* Track duplicado para loop contínuo */
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+}
+
+.marquee-track span {
+    white-space: nowrap;
+    padding: 0 32px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Separadores entre palavras */
+.marquee-track span.sep {
+    color: var(--accent);
+    padding: 0;
+    font-size: 12px;
+    opacity: 0.5;
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+
+    /* desloca metade (o conteúdo é duplicado) */
+}
+
+
+/* ─────────────────────────────────────────
+   6. SEÇÕES GENÉRICAS
+   Títulos, subtítulos e containers usados
+   em todas as seções do site
+   ───────────────────────────────────────── */
+
+/* Etiqueta acima do título (ex: "O que eu faço") */
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.section-tag::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+/* Título principal de cada seção */
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 14px;
+}
+
+/* Subtítulo descritivo */
+.section-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 520px;
+}
+
+/* Cabeçalho centralizado com margin-bottom */
+.section-head {
+    margin-bottom: 52px;
+}
+
+/* Cabeçalho com título à esquerda e possível ação à direita */
+.section-head-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+}
+
+/* Container de largura máxima centralizado */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+
+/* ─────────────────────────────────────────
+   7. SERVIÇOS
+   Grade de cards clicáveis que abrem o
+   formulário de contato com serviço
+   pré-selecionado
+   ───────────────────────────────────────── */
+.services {
+    padding: 96px 0;
+    background: var(--bg);
+}
+
+/* Grade responsiva de 3 colunas */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* Card individual de serviço */
+.service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 34px 30px 38px;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Linha âmbar animada que aparece na base do card ao hover */
+.service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(.16, 1, .3, 1);
+}
+
+.service-card:hover {
+    border-color: var(--border2);
+    background: var(--surface2);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.service-card:hover::after {
+    transform: scaleX(1);
+}
+
+/* Ícone do serviço */
+.service-card-icon {
+    width: 46px;
+    height: 46px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200, 151, 106, 0.18);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    margin-bottom: 18px;
+}
+
+.service-card-icon svg {
+    width: 21px;
+    height: 21px;
+}
+
+/* Número do serviço no canto superior direito */
+.service-num {
+    position: absolute;
+    top: 26px;
+    right: 26px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--muted2);
+}
+
+.service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 9px;
+}
+
+.service-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+}
+
+/* "Seta" de ação no rodapé do card */
+.service-card-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 18px;
+    transition: gap 0.2s;
+}
+
+.service-card:hover .service-card-arrow {
+    gap: 10px;
+}
+
+.service-card-arrow svg {
+    width: 13px;
+    height: 13px;
+}
+
+
+/* ─────────────────────────────────────────
+   8. PROJETOS
+   Seção de portfólio com:
+   - Filtros por categoria
+   - Card destaque (featured)
+   - Grade de 3 colunas
+   Imagens reais via <img> com object-fit
+   ───────────────────────────────────────── */
+.projects {
+    padding: 96px 0;
+    background: var(--surface);
+}
+
+/* ── Filtros ── */
+.proj-filters {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+}
+
+.proj-filter {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 7px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.proj-filter:hover {
+    color: var(--text);
+    border-color: var(--border2);
+}
+
+/* Estado ativo do filtro selecionado */
+.proj-filter.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+}
+
+/* ── Projeto Destaque (featured) ── */
+.proj-featured {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    /* imagem menor, corpo maior */
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+    text-decoration: none;
+    transition: box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+.proj-featured:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-color: var(--border2);
+}
+
+/* Área da imagem do projeto destaque */
+.proj-featured-img {
+    min-height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid var(--border);
+    background: var(--surface3);
+}
+
+/* Imagem real do projeto destaque */
+.proj-featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    position: absolute;
+    inset: 0;
+    transition: transform 0.5s ease;
+    filter: brightness(0.75);
+    transform-origin: top center;
+}
+
+.proj-featured:hover .proj-featured-img img {
+    transform: scale(1.04);
+    /* zoom suave ao hover */
+}
+
+/* Grade de pontos sobre a imagem */
+.proj-featured-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(180, 140, 100, 0.06) 1px, transparent 1px);
+    background-size: 26px 26px;
+    z-index: 1;
+}
+
+/* Badge "Projeto Destaque" no canto superior esquerdo */
+.proj-featured-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    z-index: 2;
+}
+
+/* Corpo do projeto destaque */
+.proj-featured-body {
+    padding: 42px 46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.proj-featured-cat {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.proj-featured-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.proj-featured-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 22px;
+}
+
+/* Métricas numéricas do projeto */
+.proj-metrics {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.proj-metric-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.proj-metric-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* Tags de tecnologia */
+.proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.tag {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 10px;
+}
+
+/* Card de feedback do cliente dentro do projeto destaque */
+.proj-feedback-card {
+    background: rgba(200, 144, 106, 0.07);
+    border: 1px solid rgba(200, 144, 106, 0.20);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+}
+
+.proj-feedback-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.proj-feedback-quote {
+    font-size: 32px;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.5;
+    font-family: 'Cormorant Garamond', serif;
+    flex-shrink: 0;
+}
+
+.proj-feedback-text {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.8;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 12px;
+}
+
+.proj-feedback-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.proj-feedback-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200, 151, 106, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.proj-feedback-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.proj-feedback-role {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.proj-feedback-stars {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 13px;
+}
+
+/* Link de CTA dentro do projeto destaque */
+.proj-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    transition: gap 0.2s;
+}
+
+.proj-cta svg {
+    width: 14px;
+    height: 14px;
+}
+
+.proj-featured:hover .proj-cta {
+    gap: 12px;
+}
+
+/* ── Grade de projetos (3 colunas) ── */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+/* Card individual de projeto */
+.proj-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+}
+
+.proj-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+/* Thumbnail do card (imagem real) */
+.proj-card-thumb {
+    height: 175px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface3);
+}
+
+/* Imagem real de demo do projeto */
+.proj-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+    filter: brightness(0.72);
+}
+
+.proj-card:hover .proj-card-thumb img {
+    transform: scale(1.06);
+    /* zoom ao hover */
+}
+
+/* Overlay com categoria sobre a imagem */
+.proj-card-thumb-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    z-index: 2;
+}
+
+/* Corpo do card */
+.proj-card-body {
+    padding: 22px 22px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.proj-card-cat {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 7px;
+}
+
+.proj-card-body h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 9px;
+}
+
+.proj-card-body p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+    flex: 1;
+    margin-bottom: 14px;
+}
+
+.proj-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+/* Rodapé do card: resultado + link */
+.proj-card-footer {
+    border-top: 1px solid var(--border);
+    padding: 13px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.proj-card-result {
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Ponto decorativo antes do resultado */
+.proj-card-result::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+.proj-card-link {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s;
+}
+
+.proj-card:hover .proj-card-link {
+    gap: 7px;
+}
+
+.proj-card-link svg {
+    width: 11px;
+    height: 11px;
+}
+
+/* Controle de visibilidade pelo filtro (via JS) */
+.proj-card[data-hidden],
+.proj-featured[data-hidden] {
+    display: none;
+}
+
+
+/* ─────────────────────────────────────────
+   9. PROCESSO
+   4 passos em linha com conectores
+   ───────────────────────────────────────── */
+.process {
+    padding: 96px 0;
+    background: var(--bg);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+}
+
+/* Linha horizontal conectando os bubbles */
+.process-steps::before {
+    content: '';
+    position: absolute;
+    top: 34px;
+    left: calc(25% / 2);
+    right: calc(25% / 2);
+    height: 1px;
+    background: var(--border2);
+    z-index: 0;
+}
+
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 18px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Círculo com ícone */
+.process-step-bubble {
+    width: 68px;
+    height: 68px;
+    background: var(--surface);
+    border: 2px solid var(--border2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    color: var(--accent);
+    transition: background 0.25s, border-color 0.25s;
+    position: relative;
+}
+
+.process-step:hover .process-step-bubble {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+}
+
+.process-step-bubble svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Número no canto superior direito do bubble */
+.process-step-num {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    width: 20px;
+    height: 20px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.process-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 9px;
+}
+
+.process-step p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+}
+
+
+/* ─────────────────────────────────────────
+   10. DEPOIMENTOS
+   Grade de 3 cards de testemunhos
+   ───────────────────────────────────────── */
+.testimonials {
+    padding: 96px 0;
+    background: var(--surface);
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.testi-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 34px 30px;
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.testi-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+}
+
+/* Estrelas de avaliação */
+.testi-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 16px;
+}
+
+.testi-stars span {
+    color: var(--accent);
+    font-size: 15px;
+}
+
+.testi-text {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.85;
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 26px;
+}
+
+/* Rodapé com avatar + nome + cargo */
+.testi-author {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.testi-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    border: 2px solid rgba(200, 151, 106, 0.26);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.testi-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+}
+
+.testi-role {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+
+/* ─────────────────────────────────────────
+   11. SOBRE MIM
+   Layout de duas colunas: foto | texto
+   ───────────────────────────────────────── */
+.about {
+    padding: 96px 0;
+    background: var(--bg);
+}
+
+.about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+}
+
+/* Coluna esquerda com foto */
+.about-visual {
+    position: relative;
+}
+
+/* Frame da foto com proporção 4:5 */
+.about-photo-frame {
+    aspect-ratio: 4/5;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Grade de pontos decorativa sobre a foto */
+.about-photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(180, 140, 100, 0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Iniciais de fallback (exibidas se não tiver foto) */
+.about-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    font-weight: 900;
+    color: rgba(200, 151, 106, 0.06);
+    letter-spacing: -0.04em;
+    user-select: none;
+    position: relative;
+    z-index: 1;
+}
+
+/* Badge de disponibilidade sobreposto na foto */
+.about-avail-badge {
+    position: absolute;
+    bottom: -16px;
+    left: 28px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 13px 18px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.about-avail-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--wa);
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Textos da coluna direita */
+.about-text {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 26px;
+}
+
+.about-text strong {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* Grade de estatísticas numéricas */
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.about-stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 14px;
+    text-align: center;
+}
+
+.about-stat-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.about-stat-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Lista de tecnologias em pílulas */
+.stack-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+}
+
+.stack-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.stack-pill {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.stack-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+}
+
+
+/* ─────────────────────────────────────────
+   12. CONTATO / FORMULÁRIO
+   Seção split: info à esquerda, form à direita
+   Formulário envia mensagem formatada ao WA
+   ───────────────────────────────────────── */
+.contact-section {
+    padding: 96px 0;
+    background:
+        radial-gradient(ellipse 70% 80% at 50% 50%, rgba(200, 144, 106, 0.06) 0%, transparent 70%),
+        var(--surface2);
+    border-top: 1px solid var(--border);
+}
+
+/* Layout: info (1fr) | formulário (1.4fr) */
+.contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 72px;
+    align-items: start;
+}
+
+.contact-left .section-title {
+    margin-bottom: 18px;
+}
+
+.contact-left .section-title span {
+    color: var(--accent);
+}
+
+.contact-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.85;
+    font-weight: 300;
+    margin-bottom: 32px;
+}
+
+/* Lista de itens de contato (WA, e-mail, horário) */
+.contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.contact-info-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-dim);
+    border: 1px solid rgba(200, 151, 106, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.contact-info-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
+.contact-info-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+
+.contact-info-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text2);
+}
+
+/* Badge verde de disponibilidade */
+.contact-avail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37, 211, 102, 0.07);
+    border: 1px solid rgba(37, 211, 102, 0.16);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--wa);
+}
+
+.contact-avail::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--wa);
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.22);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ── Formulário ── */
+.contact-form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+}
+
+.form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-weight: 300;
+}
+
+/* Linha de campos (2 colunas por padrão) */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+/* Variante de coluna única */
+.form-row.single {
+    grid-template-columns: 1fr;
+}
+
+/* Grupo: label + input/select/textarea */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* Estilos compartilhados dos inputs */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted2);
+}
+
+/* Borda âmbar + glow ao focar */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* Chevron customizado no select */
+.form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7060' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.65;
+}
+
+/* Mensagem de erro por campo */
+.form-field-err {
+    font-size: 11px;
+    color: var(--error);
+    display: none;
+    /* exibido via JS ao validar */
+}
+
+/* Borda vermelha + mostra mensagem quando .has-error */
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+    border-color: var(--error);
+}
+
+.form-group.has-error .form-field-err {
+    display: block;
+}
+
+/* Botão de envio (verde WA) */
+.form-submit-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--wa);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 24px;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    margin-top: 6px;
+}
+
+.form-submit-btn:hover {
+    background: #1aad55;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 36px rgba(37, 211, 102, 0.25);
+}
+
+.form-submit-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Nota de privacidade abaixo do botão */
+.form-note {
+    font-size: 11px;
+    color: var(--muted2);
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+
+/* ─────────────────────────────────────────
+   13. FOOTER
+   Rodapé simples com logo, links e copyright
+   ───────────────────────────────────────── */
+footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.footer-logo em {
+    color: var(--accent);
+    font-style: normal;
+}
+
+.footer-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+.footer-copy {
+    font-size: 11px;
+    color: var(--muted2);
+}
+
+
+/* ─────────────────────────────────────────
+   14. UTILITÁRIOS
+   ── Fade-in ao entrar no viewport (via JS)
+   ── Toast de notificação
+   ───────────────────────────────────────── */
+
+/* Estado inicial invisível — JS adiciona .visible */
+.fade-in {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.16, 1, .3, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Toast de feedback (sucesso/erro) */
+.toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    background: var(--surface3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(.16, 1, .3, 1), opacity 0.35s;
+    pointer-events: none;
+    max-width: 340px;
+}
+
+/* Classe adicionada via JS para exibir o toast */
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.toast-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.toast.success .toast-icon {
+    color: var(--success);
+}
+
+.toast.error .toast-icon {
+    color: var(--error);
+}
+
+
+/* ─────────────────────────────────────────
+   15. RESPONSIVO
+   Breakpoints para tablet (1024px) e
+   mobile (768px, 500px)
+   ───────────────────────────────────────── */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+
+    /* Serviços: de 3 para 2 colunas */
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Processo: de 4 para 2 colunas, remove conector horizontal */
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 36px;
+    }
+
+    .process-steps::before {
+        display: none;
+    }
+
+    /* Hero: remove coluna do card lateral */
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-card {
+        display: none;
+    }
+
+    /* Sobre: reduz gap */
+    .about-inner {
+        gap: 48px;
+    }
+
+    /* Contato: empilha colunas */
+    .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+
+    /* Nav: oculta links desktop, exibe hambúrguer */
+    .nav-links {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Hero: menos espaço no topo */
+    .hero {
+        padding-top: 108px;
+        padding-bottom: 68px;
+    }
+
+    /* Container: padding menor */
+    .container {
+        padding: 0 18px;
+    }
+
+    /* Serviços: 1 coluna */
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Projeto destaque: empilha colunas */
+    .proj-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .proj-featured-img {
+        min-height: 220px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .proj-featured-body {
+        padding: 26px 22px;
+    }
+
+    /* Grade de projetos: 1 coluna */
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Processo: 1 coluna */
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    /* Depoimentos: 1 coluna */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Sobre: empilha colunas, foto em 3:2 */
+    .about-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .about-photo-frame {
+        aspect-ratio: 3/2;
+    }
+
+    .about-avail-badge {
+        position: static;
+        margin-top: 14px;
+        align-self: flex-start;
+    }
+
+    .about-visual {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Cabeçalhos de seção: empilha */
+    .section-head-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+    }
+
+    /* Footer: empilha itens */
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    /* Hero: botões empilhados */
+    .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Formulário: 1 coluna */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form-wrap {
+        padding: 26px 20px;
+    }
+}
+
+/* ── Mobile pequeno ── */
+@media (max-width: 500px) {
+
+    /* Stats: 1 por linha */
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+}
